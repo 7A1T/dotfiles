@@ -106,3 +106,4 @@ source $ZSH/oh-my-zsh.sh
 
 eval "$(zoxide init zsh)"
 export PATH="/Applications/kitty.app/Contents/MacOS:$PATH"
+export PATH="$HOME/go/bin:$PATH"

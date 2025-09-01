@@ -6,17 +6,28 @@ return {
 			"nvim-lua/plenary.nvim",
 			"antoinemadec/FixCursorHold.nvim",
 			"nvim-treesitter/nvim-treesitter",
-			"nvim-neotest/neotest-go",
+			{ "fredrikaverpil/neotest-golang", version = "*" },
 		},
 		config = function()
 			require("neotest").setup({
 				adapters = {
-					require("neotest-go")({
+					require("neotest-golang")({
+						args = { "-v" },
 						experimental = {
 							test_table = true,
 						},
-						args = { "-count=1", "-timeout=60s" },
 					}),
+				},
+				output_panel = {
+					enabled = true,
+					open = "botright split | resize 15",
+				},
+				quickfix = {
+					open = false,
+				},
+				status = {
+					virtual_text = true,
+					signs = true,
 				},
 			})
 

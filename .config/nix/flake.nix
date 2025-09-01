@@ -53,6 +53,8 @@
         curl
         wget
         tree
+        dart-sass
+        hugo
 
         # CLI Tools & Utilities
         tmux
