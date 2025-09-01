@@ -55,9 +55,9 @@
         tree
         dart-sass
         hugo
+        slack
 
         # CLI Tools & Utilities
-        tmux
         lsd
         fzf
         zoxide
@@ -67,7 +67,6 @@
         pandoc
 
         # Security & Privacy
-        pass
         gnupg
 
         # Fonts
