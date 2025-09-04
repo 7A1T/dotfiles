@@ -17,6 +17,7 @@
         # Editors/IDEs
         neovim
         vscode
+        jetbrains.goland
 
         # Version Control
         git
@@ -30,6 +31,7 @@
         luajit
         postgresql
         go
+        php
 
         # Build Tools
         cmake
@@ -54,8 +56,9 @@
         wget
         tree
         dart-sass
-        hugo
         slack
+	kitty
+	
 
         # CLI Tools & Utilities
         lsd
@@ -68,10 +71,14 @@
 
         # Security & Privacy
         gnupg
+        bitwarden-desktop
 
         # Fonts
         nerd-fonts.hack
         nerd-fonts.meslo-lg
+
+        # Other Apps
+        spotify
       ];
 
       # Necessary for using flakes on this system.
@@ -85,13 +92,16 @@
         enable = true;
         brews = [
           # Add any remaining brew formulae here
+          "nvm"
+          "libheif"
+          "pkg-config"
         ];
         casks = [
-          "claude"
-          "gimp"
           "sf-symbols"
           "wine-stable"
           "rar"
+	  "zen"
+          "docker"
         ];
         taps = [
           # Add any custom taps here
@@ -120,8 +130,9 @@
   in
   {
     # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#macbook
-    darwinConfigurations."Taits-MacBook-Air" = nix-darwin.lib.darwinSystem {
+    # $ darwin-rebuild build --flake .#tait-work-macbook
+    # darwin-rebuild switch --flake .#tait-work-macbook
+    darwinConfigurations."tait-work-macbook" = nix-darwin.lib.darwinSystem {
       modules = [ 
         configuration 
         mac-app-util.darwinModules.default

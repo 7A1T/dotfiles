@@ -104,6 +104,12 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
 eval "$(zoxide init zsh)"
 export PATH="/Applications/kitty.app/Contents/MacOS:$PATH"
 export PATH="$HOME/go/bin:$PATH"
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
