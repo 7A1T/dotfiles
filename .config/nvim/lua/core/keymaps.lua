@@ -299,3 +299,39 @@ vim.keymap.set("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>', { d
 vim.keymap.set("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', { desc = "Spectre: Search current word" })
 vim.keymap.set("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', { desc = "Spectre: Search current word" })
 vim.keymap.set("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', { desc = "Spectre: Search in current file" })
+
+-- ===================================================================
+-- GO DEVELOPMENT (go.nvim)
+-- ===================================================================
+-- Only set these keymaps for Go files
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "go",
+	callback = function()
+		local opts = { buffer = true, silent = true }
+		
+		-- Struct tags
+		vim.keymap.set("n", "<leader>gtj", "<cmd>GoAddTag json<cr>", vim.tbl_extend("force", opts, { desc = "Go: Add json tags" }))
+		vim.keymap.set("n", "<leader>gty", "<cmd>GoAddTag yaml<cr>", vim.tbl_extend("force", opts, { desc = "Go: Add yaml tags" }))
+		vim.keymap.set("n", "<leader>gtd", "<cmd>GoRmTag<cr>", vim.tbl_extend("force", opts, { desc = "Go: Remove tags" }))
+		
+		-- Code generation
+		vim.keymap.set("n", "<leader>gfs", "<cmd>GoFillStruct<cr>", vim.tbl_extend("force", opts, { desc = "Go: Fill struct" }))
+		vim.keymap.set("n", "<leader>gii", "<cmd>GoImpl<cr>", vim.tbl_extend("force", opts, { desc = "Go: Implement interface" }))
+		
+		-- Test generation
+		vim.keymap.set("n", "<leader>gtt", "<cmd>GoAddTest<cr>", vim.tbl_extend("force", opts, { desc = "Go: Add test" }))
+		vim.keymap.set("n", "<leader>gta", "<cmd>GoAddAllTest<cr>", vim.tbl_extend("force", opts, { desc = "Go: Add all tests" }))
+		
+		-- Go mod operations
+		vim.keymap.set("n", "<leader>gmt", "<cmd>GoModTidy<cr>", vim.tbl_extend("force", opts, { desc = "Go: Mod tidy" }))
+		vim.keymap.set("n", "<leader>gmv", "<cmd>GoModVendor<cr>", vim.tbl_extend("force", opts, { desc = "Go: Mod vendor" }))
+		
+		-- Alternative imports (cycle through import options)
+		vim.keymap.set("n", "<leader>gia", "<cmd>GoAlt<cr>", vim.tbl_extend("force", opts, { desc = "Go: Alternate file" }))
+		vim.keymap.set("n", "<leader>giv", "<cmd>GoAltV<cr>", vim.tbl_extend("force", opts, { desc = "Go: Alternate file (vertical)" }))
+		
+		-- Code analysis
+		vim.keymap.set("n", "<leader>gca", "<cmd>GoCmt<cr>", vim.tbl_extend("force", opts, { desc = "Go: Add comment" }))
+		vim.keymap.set("n", "<leader>gce", "<cmd>GoIfErr<cr>", vim.tbl_extend("force", opts, { desc = "Go: Add if err" }))
+	end,
+})
