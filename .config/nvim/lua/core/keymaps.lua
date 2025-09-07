@@ -37,7 +37,7 @@ vim.keymap.set("n", "<Right>", ":vertical resize +2<CR>", opts)
 -- Buffers
 vim.keymap.set("n", "<Tab>", ":bnext<CR>", opts)
 vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", opts)
-vim.keymap.set("n", "<leader>x", ":bdelete<CR>", opts) -- close buffer
+vim.keymap.set("n", "<leader>bd", ":bdelete<CR>", opts) -- close buffer
 vim.keymap.set("n", "<leader>b", "<cmd> enew <CR>", opts) -- new buffer
 
 -- Window management
@@ -82,7 +82,7 @@ vim.keymap.set("v", ">", ">gv", opts)
 vim.keymap.set("v", "p", '"_dP', opts)
 
 -- Diagnostic keymaps
-vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 -- ToggleTerm: Open float terminal
@@ -97,7 +97,7 @@ vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm direction=tab<CR>", opts)
 -- ===================================================================
 -- DEBUGGING (DAP)
 -- ===================================================================
-vim.keymap.set("n", "<leader>db", function()
+vim.keymap.set("n", "<leader>bp", function()
 	require("dap").toggle_breakpoint()
 end, { desc = "DAP: Toggle Breakpoint" })
 vim.keymap.set("n", "<leader>dc", function()
