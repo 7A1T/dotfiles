@@ -95,4 +95,22 @@ return {
 		cmd = { "GoDoc" },                                           -- optional
 		opts = {},
 	},
+	{
+		-- Project-wide find and replace with live preview
+		"nvim-pack/nvim-spectre",
+		build = false,
+		cmd = "Spectre",
+		opts = {
+			open_cmd = "noswapfile vnew",
+			live_update = false, -- auto execute search again when you write to any file
+			line_sep_start = "┌-----------------------------------------",
+			result_padding = "¦  ",
+			line_sep = "└-----------------------------------------",
+			highlight = {
+				ui = "String",
+				search = "DiffChange",
+				replace = "DiffDelete",
+			},
+		},
+	},
 }
