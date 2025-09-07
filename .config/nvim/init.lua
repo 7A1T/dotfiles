@@ -29,6 +29,7 @@ require("lazy").setup({
 		require("plugins.comment"),
 		require("plugins.dap"),
 		require("plugins.testing"),
+		require("plugins.go-dev"),
 		require("plugins.go-templ"),
 		require("plugins.database"),
 		require("plugins.refactoring"),

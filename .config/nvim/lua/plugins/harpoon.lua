@@ -26,9 +26,17 @@ return {
             end
 
             -- Harpoon keymaps
-            vim.keymap.set("n", "<leader>a", function()
+            vim.keymap.set("n", "<leader>fa", function()
                 harpoon:list():add()
             end, { desc = "Harpoon: Add current file to list" })
+            
+            vim.keymap.set("n", "<leader>fr", function()
+                harpoon:list():remove()
+            end, { desc = "Harpoon: Remove current file from list" })
+            
+            vim.keymap.set("n", "<leader>fx", function()
+                harpoon:list():clear()
+            end, { desc = "Harpoon: Clear entire list" })
             
             vim.keymap.set("n", "<C-e>", function()
                 toggle_telescope(harpoon:list())
