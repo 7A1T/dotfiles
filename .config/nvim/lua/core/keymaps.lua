@@ -37,13 +37,27 @@ vim.keymap.set("n", "<Right>", ":vertical resize +2<CR>", opts)
 -- Buffers
 vim.keymap.set("n", "<Tab>", ":bnext<CR>", opts)
 vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", opts)
-vim.keymap.set("n", "<leader>x", ":bdelete!<CR>", opts)   -- close buffer
-vim.keymap.set("n", "<leader>b", "<cmd> enew <CR>", opts) -- new buffer
+vim.keymap.set("n", "<leader>bd", ":bdelete<CR>", opts) -- delete buffer
+vim.keymap.set("n", "<leader>bn", "<cmd> enew <CR>", opts) -- new buffer
+vim.keymap.set("n", "<leader>ba", "<cmd>%bd|e#<cr>", { desc = "Buffer: Close all others" })
+vim.keymap.set("n", "<leader>bp", "<cmd>BufferLinePick<cr>", { desc = "Buffer: Pick" })
+vim.keymap.set("n", "<leader>bc", "<cmd>BufferLinePickClose<cr>", { desc = "Buffer: Pick close" })
+
+-- Buffer number navigation  
+vim.keymap.set("n", "<leader>1", "<cmd>BufferLineGoToBuffer 1<cr>", { desc = "Buffer: Go to 1" })
+vim.keymap.set("n", "<leader>2", "<cmd>BufferLineGoToBuffer 2<cr>", { desc = "Buffer: Go to 2" })
+vim.keymap.set("n", "<leader>3", "<cmd>BufferLineGoToBuffer 3<cr>", { desc = "Buffer: Go to 3" })
+vim.keymap.set("n", "<leader>4", "<cmd>BufferLineGoToBuffer 4<cr>", { desc = "Buffer: Go to 4" })
+vim.keymap.set("n", "<leader>5", "<cmd>BufferLineGoToBuffer 5<cr>", { desc = "Buffer: Go to 5" })
+vim.keymap.set("n", "<leader>6", "<cmd>BufferLineGoToBuffer 6<cr>", { desc = "Buffer: Go to 6" })
+vim.keymap.set("n", "<leader>7", "<cmd>BufferLineGoToBuffer 7<cr>", { desc = "Buffer: Go to 7" })
+vim.keymap.set("n", "<leader>8", "<cmd>BufferLineGoToBuffer 8<cr>", { desc = "Buffer: Go to 8" })
+vim.keymap.set("n", "<leader>9", "<cmd>BufferLineGoToBuffer 9<cr>", { desc = "Buffer: Go to 9" })
 
 -- Window management
-vim.keymap.set("n", "<leader>v", "<C-w>v", opts)      -- split window vertically
-vim.keymap.set("n", "<leader>h", "<C-w>s", opts)      -- split window horizontally
-vim.keymap.set("n", "<leader>se", "<C-w>=", opts)     -- make split windows equal width & height
+vim.keymap.set("n", "<leader>v", "<C-w>v", opts) -- split window vertically
+vim.keymap.set("n", "<leader>h", "<C-w>s", opts) -- split window horizontally
+vim.keymap.set("n", "<leader>se", "<C-w>=", opts) -- make split windows equal width & height
 vim.keymap.set("n", "<leader>xs", ":close<CR>", opts) -- close current split window
 
 -- Navigate between splits
@@ -53,10 +67,10 @@ vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", opts)
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", opts)
 
 -- Tabs
-vim.keymap.set("n", "<leader>to", ":tabnew<CR>", opts)   -- open new tab
+vim.keymap.set("n", "<leader>to", ":tabnew<CR>", opts) -- open new tab
 vim.keymap.set("n", "<leader>tx", ":tabclose<CR>", opts) -- close current tab
-vim.keymap.set("n", "<leader>tn", ":tabn<CR>", opts)     --  go to next tab
-vim.keymap.set("n", "<leader>tp", ":tabp<CR>", opts)     --  go to previous tab
+vim.keymap.set("n", "<leader>tn", ":tabn<CR>", opts) --  go to next tab
+vim.keymap.set("n", "<leader>tp", ":tabp<CR>", opts) --  go to previous tab
 
 -- Toggle line wrapping
 vim.keymap.set("n", "<leader>lw", "<cmd>set wrap!<CR>", opts)
@@ -82,22 +96,19 @@ vim.keymap.set("v", ">", ">gv", opts)
 vim.keymap.set("v", "p", '"_dP', opts)
 
 -- Diagnostic keymaps
-vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
--- ToggleTerm: Open float terminal
-vim.keymap.set("n", "<leader>tf", "<cmd>ToggleTerm direction=float<CR>", opts)
-
--- ToggleTerm: Open vertical terminal
-vim.keymap.set("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical<CR>", opts)
-
--- ToggleTerm: Open tab terminal
-vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm direction=tab<CR>", opts)
+-- ToggleTerm terminals
+vim.keymap.set("n", "<leader>tf", "<cmd>ToggleTerm direction=float<CR>", { desc = "Terminal: Float" })
+vim.keymap.set("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical<CR>", { desc = "Terminal: Vertical" })
+vim.keymap.set("n", "<leader>th", "<cmd>ToggleTerm direction=horizontal<CR>", { desc = "Terminal: Horizontal" })
+vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm direction=tab<CR>", { desc = "Terminal: Tab" })
 
 -- ===================================================================
 -- DEBUGGING (DAP)
 -- ===================================================================
-vim.keymap.set("n", "<leader>db", function()
+vim.keymap.set("n", "<leader>bp", function()
 	require("dap").toggle_breakpoint()
 end, { desc = "DAP: Toggle Breakpoint" })
 vim.keymap.set("n", "<leader>dc", function()
@@ -227,6 +238,14 @@ vim.keymap.set("n", "<leader>s/", function()
 	})
 end, { desc = "[S]earch [/] in Open Files" })
 
+-- Additional telescope searches
+vim.keymap.set("n", "<leader>sc", function()
+	require("telescope.builtin").commands()
+end, { desc = "[S]earch [C]ommands" })
+vim.keymap.set("n", "<leader>so", function()
+	require("telescope.builtin").vim_options()
+end, { desc = "[S]earch [O]ptions" })
+
 -- ===================================================================
 -- DATABASE (vim-dadbod)
 -- ===================================================================
@@ -236,9 +255,83 @@ vim.keymap.set("n", "<leader>dbr", "<cmd>DBUIRenameBuffer<cr>", { desc = "Databa
 vim.keymap.set("n", "<leader>dbl", "<cmd>DBUILastQueryInfo<cr>", { desc = "Database: Last Query Info" })
 
 -- ===================================================================
--- TMUX nav (tmux integration)
+-- Refactoring (refactoring)
 -- ===================================================================
-vim.keymap.set("n", "<C-h>", "<cmd> TmuxNavigateLeft<CR>", { desc = "window left" })
-vim.keymap.set("n", "<C-l>", "<cmd> TmuxNavigateRight<CR>", { desc = "window right" })
-vim.keymap.set("n", "<C-j>", "<cmd> TmuxNavigateDown<CR>", { desc = "window down" })
-vim.keymap.set("n", "<C-k>", "<cmd> TmuxNavigateUp<CR>", { desc = "window up" })
+vim.keymap.set({ "n", "x" }, "<leader>rr", function()
+	require("telescope").extensions.refactoring.refactors()
+end)
+
+-- ===================================================================
+-- GIT OPERATIONS (GitSigns + Fugitive)
+-- ===================================================================
+-- Git hunk navigation and operations (GitSigns)
+vim.keymap.set("n", "<leader>gn", function() require("gitsigns").next_hunk() end, { desc = "Git: Next hunk" })
+vim.keymap.set("n", "<leader>gp", function() require("gitsigns").prev_hunk() end, { desc = "Git: Previous hunk" })
+vim.keymap.set("n", "<leader>gs", function() require("gitsigns").stage_hunk() end, { desc = "Git: Stage hunk" })
+vim.keymap.set("n", "<leader>gu", function() require("gitsigns").undo_stage_hunk() end, { desc = "Git: Unstage hunk" })
+vim.keymap.set("n", "<leader>gr", function() require("gitsigns").reset_hunk() end, { desc = "Git: Reset hunk" })
+vim.keymap.set("n", "<leader>gd", function() require("gitsigns").preview_hunk() end, { desc = "Git: Preview hunk" })
+
+-- Git operations (Fugitive)
+vim.keymap.set("n", "<leader>gg", "<cmd>Git<cr>", { desc = "Git: Status" })
+vim.keymap.set("n", "<leader>gl", "<cmd>Git log<cr>", { desc = "Git: Log" })
+vim.keymap.set("n", "<leader>gb", "<cmd>Git blame<cr>", { desc = "Git: Blame" })
+vim.keymap.set("n", "<leader>gw", "<cmd>Gwrite<cr>", { desc = "Git: Write (add)" })
+
+-- ===================================================================
+-- COVERAGE (nvim-coverage)
+-- ===================================================================
+vim.keymap.set("n", "<leader>ct", "<cmd>Coverage<cr>", { desc = "Coverage: Toggle" })
+vim.keymap.set("n", "<leader>cs", "<cmd>CoverageSummary<cr>", { desc = "Coverage: Summary" })
+vim.keymap.set("n", "<leader>cc", "<cmd>CoverageClear<cr>", { desc = "Coverage: Clear" })
+
+-- ===================================================================
+-- TODO COMMENTS
+-- ===================================================================
+vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find: Todo comments" })
+vim.keymap.set("n", "]t", function() require("todo-comments").jump_next() end, { desc = "Todo: Next" })
+vim.keymap.set("n", "[t", function() require("todo-comments").jump_prev() end, { desc = "Todo: Previous" })
+
+-- ===================================================================
+-- SPECTRE (Project-wide find and replace)
+-- ===================================================================
+vim.keymap.set("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>', { desc = "Spectre: Toggle" })
+vim.keymap.set("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', { desc = "Spectre: Search current word" })
+vim.keymap.set("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', { desc = "Spectre: Search current word" })
+vim.keymap.set("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', { desc = "Spectre: Search in current file" })
+
+-- ===================================================================
+-- GO DEVELOPMENT (go.nvim)
+-- ===================================================================
+-- Only set these keymaps for Go files
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "go",
+	callback = function()
+		local opts = { buffer = true, silent = true }
+		
+		-- Struct tags
+		vim.keymap.set("n", "<leader>gtj", "<cmd>GoAddTag json<cr>", vim.tbl_extend("force", opts, { desc = "Go: Add json tags" }))
+		vim.keymap.set("n", "<leader>gty", "<cmd>GoAddTag yaml<cr>", vim.tbl_extend("force", opts, { desc = "Go: Add yaml tags" }))
+		vim.keymap.set("n", "<leader>gtd", "<cmd>GoRmTag<cr>", vim.tbl_extend("force", opts, { desc = "Go: Remove tags" }))
+		
+		-- Code generation
+		vim.keymap.set("n", "<leader>gfs", "<cmd>GoFillStruct<cr>", vim.tbl_extend("force", opts, { desc = "Go: Fill struct" }))
+		vim.keymap.set("n", "<leader>gii", "<cmd>GoImpl<cr>", vim.tbl_extend("force", opts, { desc = "Go: Implement interface" }))
+		
+		-- Test generation
+		vim.keymap.set("n", "<leader>gtt", "<cmd>GoAddTest<cr>", vim.tbl_extend("force", opts, { desc = "Go: Add test" }))
+		vim.keymap.set("n", "<leader>gta", "<cmd>GoAddAllTest<cr>", vim.tbl_extend("force", opts, { desc = "Go: Add all tests" }))
+		
+		-- Go mod operations
+		vim.keymap.set("n", "<leader>gmt", "<cmd>GoModTidy<cr>", vim.tbl_extend("force", opts, { desc = "Go: Mod tidy" }))
+		vim.keymap.set("n", "<leader>gmv", "<cmd>GoModVendor<cr>", vim.tbl_extend("force", opts, { desc = "Go: Mod vendor" }))
+		
+		-- Alternative imports (cycle through import options)
+		vim.keymap.set("n", "<leader>gia", "<cmd>GoAlt<cr>", vim.tbl_extend("force", opts, { desc = "Go: Alternate file" }))
+		vim.keymap.set("n", "<leader>giv", "<cmd>GoAltV<cr>", vim.tbl_extend("force", opts, { desc = "Go: Alternate file (vertical)" }))
+		
+		-- Code analysis
+		vim.keymap.set("n", "<leader>gca", "<cmd>GoCmt<cr>", vim.tbl_extend("force", opts, { desc = "Go: Add comment" }))
+		vim.keymap.set("n", "<leader>gce", "<cmd>GoIfErr<cr>", vim.tbl_extend("force", opts, { desc = "Go: Add if err" }))
+	end,
+})

@@ -27,11 +27,30 @@ return {
 		opts = { signs = false },
 	},
 	{
-		-- High-performance color highlighter
-		"norcalli/nvim-colorizer.lua",
-		config = function()
-			require("colorizer").setup()
-		end,
+		-- High-performance color highlighter (latest maintained version)
+		"NvChad/nvim-colorizer.lua",
+		event = "VeryLazy",
+		opts = {
+			user_default_options = {
+				RGB = true,
+				RRGGBB = true,
+				names = true,
+				RRGGBBAA = true,
+				AARRGGBB = true,
+				rgb_fn = true,
+				hsl_fn = true,
+				css = true,
+				css_fn = true,
+				mode = "background", -- Available modes: foreground, background, virtualtext
+				virtualtext = "■",
+				always_update = false,
+			},
+			filetypes = {
+				"*", -- Enable for all filetypes
+				css = { css = true, css_fn = true, },
+				html = { names = false, },
+			},
+		},
 	},
 	{
 		-- Detect tabstop and shiftwidth automatically
@@ -44,10 +63,6 @@ return {
 		config = function()
 			require("toggleterm").setup()
 		end,
-	},
-	{
-		"christoomey/vim-tmux-navigator",
-		lazy = false,
 	},
 	{
 		"andythigpen/nvim-coverage",
@@ -63,5 +78,39 @@ return {
 				},
 			})
 		end,
+	},
+	{
+		"fredrikaverpil/godoc.nvim",
+		version = "*",
+		dependencies = {
+			{ "nvim-telescope/telescope.nvim" }, -- optional
+			{
+				"nvim-treesitter/nvim-treesitter",
+				opts = {
+					ensure_installed = { "go" },
+				},
+			},
+		},
+		build = "go install github.com/lotusirous/gostdsym/stdsym@latest", -- optional
+		cmd = { "GoDoc" },                                           -- optional
+		opts = {},
+	},
+	{
+		-- Project-wide find and replace with live preview
+		"nvim-pack/nvim-spectre",
+		build = false,
+		cmd = "Spectre",
+		opts = {
+			open_cmd = "noswapfile vnew",
+			live_update = false, -- auto execute search again when you write to any file
+			line_sep_start = "┌-----------------------------------------",
+			result_padding = "¦  ",
+			line_sep = "└-----------------------------------------",
+			highlight = {
+				ui = "String",
+				search = "DiffChange",
+				replace = "DiffDelete",
+			},
+		},
 	},
 }
