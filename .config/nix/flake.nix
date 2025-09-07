@@ -95,13 +95,14 @@
           "nvm"
           "libheif"
           "pkg-config"
+          "php"
         ];
         casks = [
           "sf-symbols"
           "wine-stable"
           "rar"
 	  "zen"
-          "docker"
+          "docker-desktop"
         ];
         taps = [
           # Add any custom taps here
