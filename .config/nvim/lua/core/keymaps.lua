@@ -37,8 +37,22 @@ vim.keymap.set("n", "<Right>", ":vertical resize +2<CR>", opts)
 -- Buffers
 vim.keymap.set("n", "<Tab>", ":bnext<CR>", opts)
 vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", opts)
-vim.keymap.set("n", "<leader>bd", ":bdelete<CR>", opts) -- close buffer
-vim.keymap.set("n", "<leader>b", "<cmd> enew <CR>", opts) -- new buffer
+vim.keymap.set("n", "<leader>bd", ":bdelete<CR>", opts) -- delete buffer
+vim.keymap.set("n", "<leader>bn", "<cmd> enew <CR>", opts) -- new buffer
+vim.keymap.set("n", "<leader>ba", "<cmd>%bd|e#<cr>", { desc = "Buffer: Close all others" })
+vim.keymap.set("n", "<leader>bp", "<cmd>BufferLinePick<cr>", { desc = "Buffer: Pick" })
+vim.keymap.set("n", "<leader>bc", "<cmd>BufferLinePickClose<cr>", { desc = "Buffer: Pick close" })
+
+-- Buffer number navigation  
+vim.keymap.set("n", "<leader>1", "<cmd>BufferLineGoToBuffer 1<cr>", { desc = "Buffer: Go to 1" })
+vim.keymap.set("n", "<leader>2", "<cmd>BufferLineGoToBuffer 2<cr>", { desc = "Buffer: Go to 2" })
+vim.keymap.set("n", "<leader>3", "<cmd>BufferLineGoToBuffer 3<cr>", { desc = "Buffer: Go to 3" })
+vim.keymap.set("n", "<leader>4", "<cmd>BufferLineGoToBuffer 4<cr>", { desc = "Buffer: Go to 4" })
+vim.keymap.set("n", "<leader>5", "<cmd>BufferLineGoToBuffer 5<cr>", { desc = "Buffer: Go to 5" })
+vim.keymap.set("n", "<leader>6", "<cmd>BufferLineGoToBuffer 6<cr>", { desc = "Buffer: Go to 6" })
+vim.keymap.set("n", "<leader>7", "<cmd>BufferLineGoToBuffer 7<cr>", { desc = "Buffer: Go to 7" })
+vim.keymap.set("n", "<leader>8", "<cmd>BufferLineGoToBuffer 8<cr>", { desc = "Buffer: Go to 8" })
+vim.keymap.set("n", "<leader>9", "<cmd>BufferLineGoToBuffer 9<cr>", { desc = "Buffer: Go to 9" })
 
 -- Window management
 vim.keymap.set("n", "<leader>v", "<C-w>v", opts) -- split window vertically
@@ -85,14 +99,11 @@ vim.keymap.set("v", "p", '"_dP', opts)
 vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
--- ToggleTerm: Open float terminal
-vim.keymap.set("n", "<leader>tf", "<cmd>ToggleTerm direction=float<CR>", opts)
-
--- ToggleTerm: Open vertical terminal
-vim.keymap.set("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical<CR>", opts)
-
--- ToggleTerm: Open tab terminal
-vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm direction=tab<CR>", opts)
+-- ToggleTerm terminals
+vim.keymap.set("n", "<leader>tf", "<cmd>ToggleTerm direction=float<CR>", { desc = "Terminal: Float" })
+vim.keymap.set("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical<CR>", { desc = "Terminal: Vertical" })
+vim.keymap.set("n", "<leader>th", "<cmd>ToggleTerm direction=horizontal<CR>", { desc = "Terminal: Horizontal" })
+vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm direction=tab<CR>", { desc = "Terminal: Tab" })
 
 -- ===================================================================
 -- DEBUGGING (DAP)
@@ -227,6 +238,14 @@ vim.keymap.set("n", "<leader>s/", function()
 	})
 end, { desc = "[S]earch [/] in Open Files" })
 
+-- Additional telescope searches
+vim.keymap.set("n", "<leader>sc", function()
+	require("telescope.builtin").commands()
+end, { desc = "[S]earch [C]ommands" })
+vim.keymap.set("n", "<leader>so", function()
+	require("telescope.builtin").vim_options()
+end, { desc = "[S]earch [O]ptions" })
+
 -- ===================================================================
 -- DATABASE (vim-dadbod)
 -- ===================================================================
@@ -241,3 +260,34 @@ vim.keymap.set("n", "<leader>dbl", "<cmd>DBUILastQueryInfo<cr>", { desc = "Datab
 vim.keymap.set({ "n", "x" }, "<leader>rr", function()
 	require("telescope").extensions.refactoring.refactors()
 end)
+
+-- ===================================================================
+-- GIT OPERATIONS (GitSigns + Fugitive)
+-- ===================================================================
+-- Git hunk navigation and operations (GitSigns)
+vim.keymap.set("n", "<leader>gn", function() require("gitsigns").next_hunk() end, { desc = "Git: Next hunk" })
+vim.keymap.set("n", "<leader>gp", function() require("gitsigns").prev_hunk() end, { desc = "Git: Previous hunk" })
+vim.keymap.set("n", "<leader>gs", function() require("gitsigns").stage_hunk() end, { desc = "Git: Stage hunk" })
+vim.keymap.set("n", "<leader>gu", function() require("gitsigns").undo_stage_hunk() end, { desc = "Git: Unstage hunk" })
+vim.keymap.set("n", "<leader>gr", function() require("gitsigns").reset_hunk() end, { desc = "Git: Reset hunk" })
+vim.keymap.set("n", "<leader>gd", function() require("gitsigns").preview_hunk() end, { desc = "Git: Preview hunk" })
+
+-- Git operations (Fugitive)
+vim.keymap.set("n", "<leader>gg", "<cmd>Git<cr>", { desc = "Git: Status" })
+vim.keymap.set("n", "<leader>gl", "<cmd>Git log<cr>", { desc = "Git: Log" })
+vim.keymap.set("n", "<leader>gb", "<cmd>Git blame<cr>", { desc = "Git: Blame" })
+vim.keymap.set("n", "<leader>gw", "<cmd>Gwrite<cr>", { desc = "Git: Write (add)" })
+
+-- ===================================================================
+-- COVERAGE (nvim-coverage)
+-- ===================================================================
+vim.keymap.set("n", "<leader>ct", "<cmd>Coverage<cr>", { desc = "Coverage: Toggle" })
+vim.keymap.set("n", "<leader>cs", "<cmd>CoverageSummary<cr>", { desc = "Coverage: Summary" })
+vim.keymap.set("n", "<leader>cc", "<cmd>CoverageClear<cr>", { desc = "Coverage: Clear" })
+
+-- ===================================================================
+-- TODO COMMENTS
+-- ===================================================================
+vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find: Todo comments" })
+vim.keymap.set("n", "]t", function() require("todo-comments").jump_next() end, { desc = "Todo: Next" })
+vim.keymap.set("n", "[t", function() require("todo-comments").jump_prev() end, { desc = "Todo: Previous" })

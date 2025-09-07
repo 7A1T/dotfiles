@@ -34,19 +34,20 @@ return {
                 toggle_telescope(harpoon:list())
             end, { desc = "Harpoon: Open telescope window" })
             
-            vim.keymap.set("n", "<C-h>", function()
+            -- Harpoon file selection (using Ctrl+number keys to avoid conflicts)
+            vim.keymap.set("n", "<C-1>", function()
                 harpoon:list():select(1)
             end, { desc = "Harpoon: Select file 1" })
             
-            vim.keymap.set("n", "<C-j>", function()
+            vim.keymap.set("n", "<C-2>", function()
                 harpoon:list():select(2)
             end, { desc = "Harpoon: Select file 2" })
             
-            vim.keymap.set("n", "<C-k>", function()
+            vim.keymap.set("n", "<C-3>", function()
                 harpoon:list():select(3)
             end, { desc = "Harpoon: Select file 3" })
             
-            vim.keymap.set("n", "<C-l>", function()
+            vim.keymap.set("n", "<C-4>", function()
                 harpoon:list():select(4)
             end, { desc = "Harpoon: Select file 4" })
             

@@ -13,6 +13,7 @@ return {
 				adapters = {
 					require("neotest-golang")({
 						args = { "-v" },
+						go_test_args = { "-v", "-count=1" }, -- Remove -race to fix CGO_ENABLED issue
 						experimental = {
 							test_table = true,
 						},

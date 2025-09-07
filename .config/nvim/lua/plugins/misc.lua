@@ -27,18 +27,28 @@ return {
 		opts = { signs = false },
 	},
 	{
-		-- High-performance color highlighter (maintained fork)
+		-- High-performance color highlighter (latest maintained version)
 		"NvChad/nvim-colorizer.lua",
+		event = "VeryLazy",
 		opts = {
 			user_default_options = {
 				RGB = true,
 				RRGGBB = true,
 				names = true,
 				RRGGBBAA = true,
+				AARRGGBB = true,
 				rgb_fn = true,
 				hsl_fn = true,
 				css = true,
 				css_fn = true,
+				mode = "background", -- Available modes: foreground, background, virtualtext
+				virtualtext = "■",
+				always_update = false,
+			},
+			filetypes = {
+				"*", -- Enable for all filetypes
+				css = { css = true, css_fn = true, },
+				html = { names = false, },
 			},
 		},
 	},
